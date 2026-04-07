@@ -14,6 +14,7 @@ Frontend:
 -TypeScript
 -KCAccountSystem Frontend Embed
 -Apollo Client
+-React
 -HTML
 -Bootstrap
 -CSS
