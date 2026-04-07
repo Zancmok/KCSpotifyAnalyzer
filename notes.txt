@@ -1,0 +1,17 @@
+Tools used:
+-Git
+-Github
+Backend:
+-Docker
+-Docker Compose
+-Apache
+-PHP
+-KCAccountSystem PHP-Lib
+-GraphQL PHP
+-MySQL
+Frontend:
+-TypeScript
+-Apollo Client
+-HTML
+-Bootstrap
+-CSS
