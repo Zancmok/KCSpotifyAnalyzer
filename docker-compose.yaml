@@ -20,6 +20,7 @@ services:
       - "8000:80"
     volumes:
       - ./src:/var/www
+      - ./frontend:/var/www/frontend
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - app
