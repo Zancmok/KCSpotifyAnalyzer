@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
 body {
-    @apply bg-black text-white;
+    @apply bg-gray-900 text-white;
+}
+
+.standart-text {
+    @apply text-gray-300;
+}
+
+.green-button {
+    @apply bg-green-700 hover:bg-green-800 transition px-6 py-3 rounded-lg font-semibold;
 }
