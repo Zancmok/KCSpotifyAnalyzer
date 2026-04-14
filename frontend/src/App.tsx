@@ -1,5 +1,6 @@
-import Home from "./pages/Home.tsx";
+import Index from "./pages/Index.tsx";
 
-export default function App() {
-  return <Home />;
+export default function App()
+{
+  return <Index />;
 }
