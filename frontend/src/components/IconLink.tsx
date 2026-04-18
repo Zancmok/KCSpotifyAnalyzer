@@ -6,7 +6,8 @@ type IconLinkProps = {
     icon: ElementType;
 };
 
-export default function IconLink({ to, icon: Icon }: IconLinkProps) {
+export default function IconLink({ to, icon: Icon }: IconLinkProps)
+{
     return (
         <NavLink
             to={to}
