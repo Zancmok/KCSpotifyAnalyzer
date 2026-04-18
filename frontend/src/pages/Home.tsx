@@ -1,11 +1,28 @@
+import { useState } from "react";
+
 import {
-    HomeIcon
+    HomeIcon, GlobeAltIcon
 } from "@heroicons/react/24/outline";
 
 import IconLink from "../components/IconLink.tsx";
 import YearSetting from "../components/YearSetting.tsx";
+import GroupElement from "../components/GroupElement.tsx";
 
-export default function Home() {
+export default function Home()
+{
+    type Group = {
+        id: string;
+        name: string;
+        iconUrl: string;
+    };
+
+    const groups: Group[] = [
+        { id: "everyone", name: "Everyone", iconUrl: "" },
+        { id: "cyka", name: "Cyka", iconUrl: ""}
+    ];
+
+    const [selectedGroup, setSelectedGroup] = useState<string>("everyone");
+
     return (
         <div className="min-h-screen flex flex-col">
 
@@ -28,8 +45,18 @@ export default function Home() {
 
             </header>
 
-            <section className="page-section standard-text border-b">
-                Groups
+            <section className="page-section standard-text border-b flex gap-2 overflow-x-auto">
+                {
+                    groups.map((group) => (
+                        <GroupElement
+                            name={group.name}
+                            icon={group.id == "everyone" ? GlobeAltIcon : undefined}
+                            iconUrl={group.iconUrl}
+                            active={group.id === selectedGroup}
+                            onClick={() => setSelectedGroup(group.id)}
+                        />
+                    ))
+                }
             </section>
 
             <main className="page-main">

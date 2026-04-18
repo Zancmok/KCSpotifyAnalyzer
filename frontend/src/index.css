@@ -34,7 +34,15 @@ body {
 }
 
 .green-button {
-    @apply bg-green-700 hover:bg-green-800 transition px-6 py-3 rounded-lg font-semibold;
+    @apply bg-green-700 hover:bg-green-800 transition px-6 py-3 rounded-lg font-semibold cursor-pointer;
+}
+
+.gray-button {
+    @apply bg-gray-900 hover:bg-gray-800 transition px-6 py-3 rounded-lg font-semibold cursor-pointer;
+}
+
+.gray-button--active {
+    @apply bg-gray-800;
 }
 
 .inactive-nav-link {
