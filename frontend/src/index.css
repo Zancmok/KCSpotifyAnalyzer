@@ -1,54 +1,57 @@
 @import "tailwindcss";
 
-body {
-    @apply bg-gray-900 text-white;
+@theme {
+    /* --------------------
+       Core Brand Colors
+    -------------------- */
+    --color-brand: #1db954;
+
+    /* --------------------
+       Surfaces (backgrounds)
+    -------------------- */
+    --color-bg: #121212;
+    --color-surface: #212121;
+    --color-surface-2: #2a2a2a;
+
+    /* --------------------
+       Text Colors
+    -------------------- */
+    --color-text: #ffffff;
+    --color-text-muted: #b3b3b3;
+    --color-text-dim: #535353;
+
+    /* --------------------
+       UI Elements
+    -------------------- */
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-hover: rgba(255, 255, 255, 0.06);
+    --color-active: var(--color-brand);
 }
 
-.app-header {
-    @apply flex items-center justify-between px-4 py-3 border-b border-gray-800;
-}
+@layer base {
+    /* Global app styling */
+    body {
+        @apply bg-bg text-text antialiased;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
 
-.nav-bar {
-    @apply flex items-center gap-2;
-}
+    /* Better default behavior */
+    * {
+        @apply border-border;
+    }
 
-.page-section {
-    @apply px-4 py-3 border-gray-800;
-}
+    /* Smooth typography */
+    h1, h2, h3, h4 {
+        @apply tracking-tight;
+    }
 
-.page-main {
-    @apply flex-1 px-4 py-4;
-}
+    /* Links */
+    a {
+        @apply text-text-muted hover:text-brand transition;
+    }
 
-.standard-text {
-    @apply text-gray-300;
-}
-
-.icon-button {
-    @apply inline-flex items-center justify-center w-10 h-10 rounded-full
-    hover:bg-gray-800 transition;
-}
-
-.icon-button-active {
-    @apply bg-gray-800;
-}
-
-.green-button {
-    @apply bg-green-700 hover:bg-green-800 transition px-6 py-3 rounded-lg font-semibold cursor-pointer;
-}
-
-.gray-button {
-    @apply bg-gray-900 hover:bg-gray-800 transition px-6 py-3 rounded-lg font-semibold cursor-pointer;
-}
-
-.gray-button--active {
-    @apply bg-gray-800;
-}
-
-.inactive-nav-link {
-    @apply hover:bg-gray-800;
-}
-
-.year-input {
-    @apply w-24 bg-gray-900 border border-gray-700 rounded px-2 py-1 text-center;
+    /* Buttons reset consistency */
+    button {
+        @apply transition;
+    }
 }
