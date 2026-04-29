@@ -1,10 +1,6 @@
 import { createContext, useState, useEffect, type ReactNode } from "react";
 
-// ----------------------------------------
-// TODO: Fill in your user shape once your
-// auth provider is defined.
-// ----------------------------------------
-export type AuthUser = {
+export type SpotifyUser = {
     id: string;
     display_name: string;
     avatar_url: string;
@@ -12,51 +8,63 @@ export type AuthUser = {
 
 type AuthState =
     | { status: "loading" }
-    | { status: "authenticated"; user: AuthUser; accessToken: string }
+    | { status: "authenticated"; user: SpotifyUser; token: string }
     | { status: "unauthenticated" };
 
 type AuthContextType = {
     auth: AuthState;
     login: () => void;
     logout: () => void;
-    handleTokenReceived: (token: string, user: AuthUser) => void;
+    handleTokenReceived: (token: string) => void;
 };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
+const BACKEND_URL = "";
+
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [auth, setAuth] = useState<AuthState>({ status: "loading" });
 
-    const handleTokenReceived = (token: string, user: AuthUser) => {
-        localStorage.setItem("access_token", token);
-        setAuth({ status: "authenticated", user, accessToken: token });
+    const fetchAndSetUser = async (token: string) => {
+        const res = await fetch(`${BACKEND_URL}/api/me`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!res.ok) throw new Error("Failed to fetch user");
+        const user: SpotifyUser = await res.json();
+        setAuth({ status: "authenticated", user, token });
     };
 
     // On mount: validate any stored token
     useEffect(() => {
-        const token = localStorage.getItem("access_token");
+        const token = localStorage.getItem("token");
         if (!token) {
             setAuth({ status: "unauthenticated" });
             return;
         }
-        validateToken(token)
-            .then((user) => setAuth({ status: "authenticated", user, accessToken: token }))
-            .catch(() => {
-                localStorage.removeItem("access_token");
-                setAuth({ status: "unauthenticated" });
-            });
+        fetchAndSetUser(token).catch(() => {
+            localStorage.removeItem("token");
+            setAuth({ status: "unauthenticated" });
+        });
     }, []);
 
-    // Listen for token posted back from popup window
+    // Listen for token posted back from popup
     useEffect(() => {
         const handler = (event: MessageEvent) => {
             if (event.origin !== window.location.origin) return;
             if (event.data?.type !== "oauth_callback") return;
-            handleTokenReceived(event.data.token, event.data.user);
+            handleTokenReceived(event.data.token);
         };
         window.addEventListener("message", handler);
         return () => window.removeEventListener("message", handler);
     }, []);
+
+    const handleTokenReceived = (token: string) => {
+        localStorage.setItem("token", token);
+        fetchAndSetUser(token).catch(() => {
+            localStorage.removeItem("token");
+            setAuth({ status: "unauthenticated" });
+        });
+    };
 
     const login = () => {
         const isMobile =
@@ -64,14 +72,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             window.innerWidth < 768;
 
         if (isMobile) {
-            redirectLogin();
+            window.location.href = `${BACKEND_URL}/auth/spotify/redirect`;
         } else {
             popupLogin();
         }
     };
 
     const logout = () => {
-        localStorage.removeItem("access_token");
+        localStorage.removeItem("token");
         setAuth({ status: "unauthenticated" });
     };
 
@@ -82,52 +90,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     );
 }
 
-// ----------------------------------------
-// TODO: Replace with your provider's authorize URL + scopes
-// ----------------------------------------
-function buildAuthUrl(redirectUri: string): string {
-    const params = new URLSearchParams({
-        client_id: import.meta.env.VITE_AUTH_CLIENT_ID,
-        redirect_uri: redirectUri,
-        response_type: "code",
-        scope: "TODO",
-    });
-    return `https://TODO_PROVIDER/oauth/authorize?${params}`;
-}
-
-function redirectLogin() {
-    const redirectUri = `${window.location.origin}/callback`;
-    window.location.href = buildAuthUrl(redirectUri);
-}
-
 function popupLogin() {
-    const redirectUri = `${window.location.origin}/callback`;
-    const url = buildAuthUrl(redirectUri);
-
     const width = 500;
     const height = 700;
     const left = window.screenX + (window.outerWidth - width) / 2;
     const top = window.screenY + (window.outerHeight - height) / 2;
 
     const popup = window.open(
-        url,
+        "/auth/spotify/redirect",
         "oauth_popup",
         `width=${width},height=${height},left=${left},top=${top},toolbar=no,menubar=no`
     );
 
-    // If popup was blocked by the browser, fall back to redirect
+    // If popup was blocked, fall back to redirect
     if (!popup || popup.closed) {
-        redirectLogin();
+        window.location.href = "/auth/spotify/redirect";
     }
-}
-
-// ----------------------------------------
-// TODO: Replace with your provider's token validation endpoint
-// ----------------------------------------
-async function validateToken(token: string): Promise<AuthUser> {
-    const res = await fetch("https://TODO_PROVIDER/api/me", {
-        headers: { Authorization: `Bearer ${token}` },
-    });
-    if (!res.ok) throw new Error("Invalid token");
-    return res.json();
 }
