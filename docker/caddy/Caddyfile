@@ -1,0 +1,18 @@
+kcspotifyanalyzer.duckdns.org:9023 {
+    tls {
+            dns duckdns {env.DUCKDNS_TOKEN}
+        }
+
+# Proxy /api and /auth to Laravel PHP-FPM
+    @laravel path /api/* /auth/*
+    php_fastcgi @laravel app:9000 {
+                                      root /var/www/public
+                                  }
+
+# Serve React static files
+    root * /srv/react
+    try_files {path} /index.html
+    file_server
+
+    encode gzip
+}

@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\SpotifyController;
 
-Route::get('/', function()
-{
-    return redirect('/index.html');
-});
+Route::get('/auth/spotify/redirect', [SpotifyController::class, 'redirect']);
+Route::get('/auth/spotify/callback', [SpotifyController::class, 'callback']);
