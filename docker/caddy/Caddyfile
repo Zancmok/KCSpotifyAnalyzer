@@ -3,16 +3,22 @@ kcspotifyanalyzer.duckdns.org:9023 {
             dns duckdns {env.DUCKDNS_TOKEN}
         }
 
-# Proxy /api and /auth to Laravel PHP-FPM
-    @laravel path /api/* /auth/*
-    php_fastcgi @laravel app:9000 {
-                                      root /var/www/public
-                                  }
-
-# Serve React static files
-    root * /srv/react
-    try_files {path} /index.html
-    file_server
+    log {
+            output stderr
+        }
 
     encode gzip
+
+# Laravel PHP-FPM for /api and /auth
+    root * /var/www/public
+    php_fastcgi /api/* app:9000
+    php_fastcgi /auth/* app:9000
+
+# React static files for everything else
+    @static not path /api/* /auth/*
+    handle @static {
+                       root * /srv/react
+                       try_files {path} /index.html
+                       file_server
+                   }
 }
