@@ -1,0 +1,7 @@
+services:
+  flask:
+    build:
+      context: .
+      dockerfile: ./docker/flask/Dockerfile
+    ports:
+      - "5000:5000"
