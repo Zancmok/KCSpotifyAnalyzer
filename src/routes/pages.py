@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template
 from flask.typing import ResponseReturnValue
-from HTTPCode import HTTPCode
-from HTTPMethod import HTTPMethod
+from http import HTTPMethod, HTTPStatus
 
 
 blueprint: Blueprint = Blueprint(
@@ -12,4 +11,9 @@ blueprint: Blueprint = Blueprint(
 
 @blueprint.route("/", methods=[HTTPMethod.GET])
 def index() -> ResponseReturnValue:
-    return render_template("index.html"), HTTPCode.OK
+    return render_template("index.html"), HTTPStatus.OK
+
+
+@blueprint.route("/home", methods=[HTTPMethod.GET])
+def home() -> ResponseReturnValue:
+    return render_template("home.html"), HTTPStatus.OK

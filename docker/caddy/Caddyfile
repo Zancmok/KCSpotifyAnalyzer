@@ -1,0 +1,11 @@
+kcspotifyanalyzer.duckdns.org:9027 {
+    reverse_proxy flask:5000
+    encode gzip
+    tls {
+        dns duckdns {env.DUCKDNS_TOKEN}
+    }
+    log {
+        output file /var/log/caddy/caddy.log
+        format console
+    }
+}

@@ -1,5 +1,4 @@
 python-dotenv
 spotipy
-bcrypt
 flask
 gunicorn

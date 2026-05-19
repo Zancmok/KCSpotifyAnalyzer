@@ -1,7 +1,26 @@
 services:
+  caddy:
+    build:
+      context: .
+      dockerfile: ./docker/caddy/Dockerfile
+    env_file:
+      - ./docker/caddy/.env
+    ports:
+      - "9027:9027"
+    volumes:
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - flask
+
   flask:
     build:
       context: .
       dockerfile: ./docker/flask/Dockerfile
     ports:
       - "5000:5000"
+
+volumes:
+  caddy_data:
+  caddy_config:

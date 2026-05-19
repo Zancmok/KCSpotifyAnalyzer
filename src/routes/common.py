@@ -1,9 +1,9 @@
 from datetime import datetime, timezone
 from flask import Blueprint, jsonify
 from flask.typing import ResponseReturnValue
-from HTTPCode import HTTPCode
-from HTTPMethod import HTTPMethod
+from http import HTTPStatus, HTTPMethod
 import config
+
 
 blueprint: Blueprint = Blueprint(
     name="common",
@@ -15,7 +15,7 @@ blueprint: Blueprint = Blueprint(
 def ping() -> ResponseReturnValue:
     return jsonify({
         "status": "ok"
-    }), HTTPCode.OK
+    }), HTTPStatus.OK
 
 
 @blueprint.route("/health", methods=[HTTPMethod.GET])
@@ -25,4 +25,4 @@ def health() -> ResponseReturnValue:
         "service": "kc-spotify-analyzer",
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "app_version": config.VERSION
-    }), HTTPCode.OK
+    }), HTTPStatus.OK
