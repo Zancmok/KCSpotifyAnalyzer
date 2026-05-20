@@ -1,6 +1,7 @@
 import config
 from flask import Flask
 from routes import blueprints
+import database.database as database
 
 
 def main() -> None:
@@ -11,6 +12,8 @@ def main() -> None:
 
     for blueprint in blueprints:
         app.register_blueprint(blueprint)
+
+    database.initialize()
 
     app.run(
         port=config.PORT,

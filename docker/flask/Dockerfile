@@ -6,12 +6,12 @@ RUN npm install -g typescript
 
 COPY ./src/static/script/ /script/
 
-RUN tsc /script/*.ts --outDir /ts/script
+RUN tsc -p /script/ --rootDir /script --outDir /ts/script
 
 
 FROM python:3.14-slim AS py-build
 
-ENV APP_VERSION="alpha-0.0.1"
+ENV APP_VERSION="alpha-0.0.2"
 
 WORKDIR /flask
 

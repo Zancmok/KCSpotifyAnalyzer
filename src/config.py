@@ -27,3 +27,13 @@ FLASK_SECRET_KEY: str = _load_env("FLASK_SECRET_KEY")
 SPOTIFY_REDIRECT_URI: str = "https://kcspotifyanalyzer.duckdns.org:9027/auth/callback"
 SPOTIFY_CLIENT_ID: str = _load_env("SPOTIFY_CLIENT_ID")
 SPOTIFY_CLIENT_SECRET: str = _load_env("SPOTIFY_CLIENT_SECRET")
+
+
+# Database
+MYSQL_PORT: int = 3306
+MYSQL_HOST: str = "mysql"
+MYSQL_DATABASE: str = "database"
+MYSQL_ROOT_PASSWORD: str = "admin"
+MYSQL_PASSWORD: str = "admin"
+MYSQL_USER: str = "admin"
+DATABASE_RECONNECTION_TIMEOUT: int | float = 1

@@ -21,6 +21,20 @@ services:
     ports:
       - "5000:5000"
 
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: database
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_USER: admin
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
 volumes:
   caddy_data:
   caddy_config:
+  mysql_data:

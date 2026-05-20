@@ -1,4 +1,18 @@
+@import "color.css";
+
 body {
+  /* Font */
+  font-family: 'JetBrains Mono', serif;
+
+  /* Color Scheme */
+  color: var(--white);
+  background-color: var(--black);
+
+  a {
+    color: var(--green);
+  }
+
+  /* Header + Footer placement logic */
   min-height: 100vh;
   margin: 0;
   display: grid;
