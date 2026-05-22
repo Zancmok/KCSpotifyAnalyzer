@@ -1,5 +1,5 @@
-from .Friendship import Friendship
 from .User import User
+from .Friendship import Friendship
 
 
 __all__ = [

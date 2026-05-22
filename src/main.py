@@ -1,7 +1,9 @@
 import config
 from flask import Flask
+from strawberry.flask.views import GraphQLView
 from routes import blueprints
 import database.database as database
+from graphql_api.schema import schema
 
 
 def main() -> None:
@@ -12,6 +14,11 @@ def main() -> None:
 
     for blueprint in blueprints:
         app.register_blueprint(blueprint)
+
+    app.add_url_rule(
+        "/graphql",
+        view_func=GraphQLView.as_view("graphql_view", schema=schema)
+    )
 
     database.initialize()
 

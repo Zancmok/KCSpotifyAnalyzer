@@ -4,14 +4,14 @@ WORKDIR /ts
 
 RUN npm install -g typescript
 
-COPY ./src/static/script/ /script/
+COPY ./src/static/ts/ /ts/
 
-RUN tsc -p /script/ --rootDir /script --outDir /ts/script
+RUN tsc -p /ts/ --rootDir /ts --outDir /ts/ts
 
 
 FROM python:3.14-slim AS py-build
 
-ENV APP_VERSION="alpha-0.0.2"
+ENV APP_VERSION="alpha-0.0.3"
 
 WORKDIR /flask
 
@@ -23,7 +23,7 @@ RUN pip install --no-cache-dir -r /flask/requirements.txt
 
 COPY ./docker/flask/.env /flask/
 
-COPY --from=ts-build /ts/script/ /flask/static/script/
+COPY --from=ts-build /ts/ts/ /flask/static/ts/
 
 EXPOSE 5000
 

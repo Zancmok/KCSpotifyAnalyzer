@@ -12,8 +12,14 @@ if TYPE_CHECKING:
 class Friendship(BaseModel):
     __tablename__ = "friendship"
 
-    user1_id: Mapped[int] = mapped_column(primary_key=True)
-    user2_id: Mapped[int] = mapped_column(primary_key=True)
+    user1_id: Mapped[int] = mapped_column(
+        ForeignKey("user.id"),
+        primary_key=True
+    )
+    user2_id: Mapped[int] = mapped_column(
+        ForeignKey("user.id"),
+        primary_key=True
+    )
     initiator_id: Mapped[int] = mapped_column(
         ForeignKey("user.id"),
         nullable=False

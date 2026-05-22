@@ -37,3 +37,7 @@ MYSQL_ROOT_PASSWORD: str = "admin"
 MYSQL_PASSWORD: str = "admin"
 MYSQL_USER: str = "admin"
 DATABASE_RECONNECTION_TIMEOUT: int | float = 1
+
+
+# Session
+SPOTIFY_ID_KEY: str = "spotify_id"

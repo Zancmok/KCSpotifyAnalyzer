@@ -4,3 +4,4 @@ flask
 gunicorn
 pymysql
 sqlalchemy
+strawberry-graphql[cli]

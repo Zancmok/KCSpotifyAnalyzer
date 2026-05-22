@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .BaseModel import BaseModel
@@ -21,7 +21,7 @@ class User(BaseModel):
         String(128),
         nullable=False
     )
-    img_url: Mapped[str] = mapped_column(
+    image_url: Mapped[Optional[str]] = mapped_column(
         String(256),
         nullable=True
     )
