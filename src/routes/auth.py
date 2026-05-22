@@ -1,11 +1,12 @@
 from typing import Any, Optional
 from flask import Blueprint, redirect, url_for, request, session
 from flask.typing import ResponseReturnValue
-from http import HTTPMethod
+from http import HTTPMethod, HTTPStatus
 from spotipy import SpotifyOAuth, Spotify
+from database.models import User
 import database.repositories.user_repository as user_repository
+from helpers import require_auth
 import config
-
 
 blueprint: Blueprint = Blueprint(
     name="auth",
@@ -69,3 +70,18 @@ def callback() -> ResponseReturnValue:
     session[config.SPOTIFY_ID_KEY] = spotify_id
 
     return redirect(url_for('pages.home'))
+
+
+@blueprint.route("/me", methods=[HTTPMethod.POST])
+@require_auth
+def me() -> ResponseReturnValue:
+    user: Optional[User] = user_repository.get_by_spotify_id(session.get(config.SPOTIFY_ID_KEY, ''))
+    if not user:
+        return {}, HTTPStatus.BAD_REQUEST
+
+    return {
+        "id": user.id,
+        "spotify_id": user.spotify_id,
+        "name": user.name,
+        "image_url": user.image_url
+    }, HTTPStatus.OK

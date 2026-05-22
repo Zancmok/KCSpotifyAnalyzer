@@ -12,8 +12,8 @@ class User:
     image_url: Optional[str]
 
 
-def get_user(spotify_id: str) -> list[User]:
-    user: Optional[DBUser] = user_repository.get_by_spotify_id(spotify_id)
+def get_user(id: int) -> list[User]:
+    user: Optional[DBUser] = user_repository.get_by_id(id)
 
     if not user:
         return []

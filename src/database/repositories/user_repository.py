@@ -10,6 +10,11 @@ def get_by_spotify_id(spotify_id: str) -> Optional[User]:
         return session.execute(select(User).where(User.spotify_id == spotify_id)).scalars().first()
 
 
+def get_by_id(id: int) -> Optional[User]:
+    with Session(sql_engine) as session:
+        return session.execute(select(User).where(User.id == id)).scalars().first()
+
+
 def update_user(spotify_id: str, name: str, image_url: Optional[str]) -> User:
     with Session(sql_engine) as session:
         user: Optional[User] = session.execute(select(User).where(User.spotify_id == spotify_id)).scalars().first()

@@ -3,11 +3,19 @@
 <head>
     <title>KCSpotifyAnalyzer</title>
     <link href="../static/style/common.css" rel="stylesheet">
-    <script src="../static/ts/pages/home/home.js"></script>
+    <link href="../static/style/pages/home.css" rel="stylesheet">
+    <script src="../static/ts/pages/home/home.js" type="module"></script>
 </head>
 <body>
     <header>
         <h1>KCSpotifyAnalyzer</h1>
+        <!-- User Data -->
+        <div id="userData">
+            <button>Upload Data</button>
+            <input type="file" id="fileInput" accept="json/*">
+            <span id="userName">Zancmok</span>
+            <img id="profilePicture" alt="Profile Picture" width="auto" height="50px" src="">
+        </div>
     </header>
     <main>
 

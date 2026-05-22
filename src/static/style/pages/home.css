@@ -1,0 +1,14 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#userData {
+    display: flex;
+    align-items: center;
+}
+
+#profilePicture {
+    float: right;
+}

@@ -2,21 +2,22 @@
 
 body {
   /* Font */
-  font-family: 'JetBrains Mono', serif;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.25em;
 
   /* Color Scheme */
   color: var(--white);
   background-color: var(--black);
-
-  a {
-    color: var(--green);
-  }
 
   /* Header + Footer placement logic */
   min-height: 100vh;
   margin: 0;
   display: grid;
   grid-template-rows: auto 1fr auto;
+}
+
+a {
+  color: var(--green);
 }
 
 header {
