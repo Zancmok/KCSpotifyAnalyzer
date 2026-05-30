@@ -16,7 +16,7 @@ class Group(BaseModel):
     id: Mapped[int] = mapped_column(primary_key=True)
     owner_id: Mapped[int] = mapped_column(
         ForeignKey("user.id"),
-        primary_key=True
+        unique=True
     )
     name: Mapped[str] = mapped_column(
         String(128),
@@ -39,4 +39,3 @@ class Group(BaseModel):
         foreign_keys="UserGroup.group_id",
         back_populates="group",
     )
-    
