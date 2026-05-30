@@ -1,7 +1,0 @@
-python-dotenv
-spotipy
-flask
-gunicorn
-pymysql
-sqlalchemy
-strawberry-graphql[cli]

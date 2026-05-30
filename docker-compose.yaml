@@ -12,14 +12,17 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
-      - flask
+      - web_server
 
-  flask:
+  web_server:
     build:
       context: .
-      dockerfile: ./docker/flask/Dockerfile
-    ports:
-      - "5000:5000"
+      dockerfile: docker/web_server/Dockerfile
+
+  data_analyzer:
+    build:
+      context: .
+      dockerfile: docker/data_analyzer/Dockerfile
 
   mysql:
     image: mysql:8
