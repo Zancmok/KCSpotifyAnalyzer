@@ -23,8 +23,7 @@ class Friendship(BaseModel):
     )
     initiator_id: Mapped[int] = mapped_column(
         ForeignKey("user.id"),
-        nullable=False,
-        unique=True
+        nullable=False
     )
     status: Mapped[FriendshipStatus] = mapped_column(
         SQLEnum(FriendshipStatus),

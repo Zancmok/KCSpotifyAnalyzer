@@ -1,5 +1,5 @@
 kcspotifyanalyzer.duckdns.org:9027 {
-    reverse_proxy flask:5000
+    reverse_proxy web_server:5000
     encode gzip
     tls {
         dns duckdns {env.DUCKDNS_TOKEN}

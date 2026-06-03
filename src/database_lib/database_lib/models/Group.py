@@ -15,8 +15,7 @@ class Group(BaseModel):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     owner_id: Mapped[int] = mapped_column(
-        ForeignKey("user.id"),
-        unique=True
+        ForeignKey("user.id")
     )
     name: Mapped[str] = mapped_column(
         String(128),

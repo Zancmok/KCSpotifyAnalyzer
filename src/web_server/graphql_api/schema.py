@@ -1,11 +1,11 @@
 import strawberry
 from strawberry import Schema
-from .types.User import User, get_user
+from .resolvers.query_me import MeQuery
 
 
 @strawberry.type
-class Query:
-    user: list[User] = strawberry.field(resolver=get_user)
+class Query(MeQuery):
+    pass
 
 
 schema: Schema = Schema(query=Query)

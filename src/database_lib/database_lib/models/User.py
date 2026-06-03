@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     from .Friendship import Friendship
     from .Group import Group
     from .UserGroup import UserGroup
+    from .Listen import Listen
 
 
 class User(BaseModel):
@@ -67,3 +68,10 @@ class User(BaseModel):
         foreign_keys="UserGroup.user_id",
         back_populates="user",
     )
+
+    listens: Mapped[list["Listen"]] = relationship(
+        "Listen",
+        foreign_keys="Listen.user_id",
+        back_populates="user"
+    )
+    
