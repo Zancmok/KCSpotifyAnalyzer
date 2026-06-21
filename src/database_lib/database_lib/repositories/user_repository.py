@@ -1,4 +1,5 @@
 from typing import Optional
+from datetime import datetime
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from ..models import User
@@ -36,3 +37,25 @@ def update_user(spotify_id: str, name: str, image_url: Optional[str]) -> User:
         session.refresh(user)
 
         return user
+
+
+def get_last_upload_time(spotify_id: str) -> Optional[datetime]:
+    with Session(get_sql_engine()) as session:
+        user: Optional[User] = session.execute(select(User).where(User.spotify_id == spotify_id)).scalars().first()
+
+        if not user:
+            return None
+
+        return user.last_upload
+
+
+def update_upload_time(spotify_id: str) -> None:
+    with Session(get_sql_engine()) as session:
+        user: Optional[User] = session.execute(select(User).where(User.spotify_id == spotify_id)).scalars().first()
+
+        if not user:
+            return
+
+        user.last_upload = datetime.now()
+
+        session.commit()

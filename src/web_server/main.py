@@ -1,6 +1,5 @@
 import config
 from flask import Flask
-from strawberry.flask.views import GraphQLView
 from routes import blueprints
 from database_lib import initialize as initialize_database
 from graphql_api import MyGraphQLView

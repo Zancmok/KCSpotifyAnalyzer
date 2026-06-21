@@ -1,12 +1,13 @@
 services:
   caddy:
+    container_name: caddy
     build:
       context: .
       dockerfile: ./docker/caddy/Dockerfile
     env_file:
       - ./docker/caddy/.env
     ports:
-      - "9027:9027"
+      - "9005:9005"
     volumes:
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
@@ -15,14 +16,20 @@ services:
       - web_server
 
   web_server:
+    container_name: web_server
     build:
       context: .
       dockerfile: docker/web_server/Dockerfile
+    volumes:
+      - uploads:/uploads
 
   data_analyzer:
+    container_name: data_analyzer
     build:
       context: .
       dockerfile: docker/data_analyzer/Dockerfile
+    volumes:
+      - uploads:/uploads
 
   mysql:
     image: mysql:8
@@ -39,3 +46,4 @@ volumes:
   caddy_data:
   caddy_config:
   mysql_data:
+  uploads:

@@ -1,5 +1,5 @@
 import { getById } from "../../util.js";
-import { me, meResponse, upload } from "../../requests/rest/user_data.js";
+import { upload } from "../../requests/rest/user_data.js";
 
 async function fileInputChanged(): Promise<void>
 {
@@ -19,7 +19,7 @@ function uploadButtonPressed(): void
     fileInput.click();
 }
 
-function displayUserData(userData: meResponse): void
+function displayUserData(userData: any): void
 {
     const userNameParagraph: HTMLParagraphElement = getById<HTMLParagraphElement>("userName");
     const profilePicture: HTMLImageElement = getById<HTMLImageElement>("profilePicture");
@@ -30,9 +30,7 @@ function displayUserData(userData: meResponse): void
 
 async function main(): Promise<void>
 {
-    const userData: meResponse = await me();
-
-    displayUserData(userData);
+    // displayUserData();
 
     const fileInput: HTMLInputElement = getById<HTMLInputElement>("fileInput");
     fileInput.addEventListener('change', fileInputChanged);

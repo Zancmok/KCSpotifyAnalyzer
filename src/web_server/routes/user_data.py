@@ -1,5 +1,7 @@
-import zipfile
+import os.path
 from typing import Any, Optional
+from datetime import datetime
+import zipfile
 from flask import Blueprint, session, request
 from flask.typing import ResponseReturnValue
 from http import HTTPMethod, HTTPStatus
@@ -40,6 +42,14 @@ def upload() -> ResponseReturnValue:
             "success": False
         }, HTTPStatus.BAD_REQUEST
 
+    last_upload_time: Optional[datetime] = user_repository.get_last_upload_time(user.spotify_id)
+    if last_upload_time is not None and last_upload_time + config.UPLOAD_TIME_LIMIT > datetime.now():
+        print(f"User: '{user.name}' is spamming, bad goy!", flush=True)
+
+        return {
+            'success': False
+        }, HTTPStatus.FORBIDDEN
+
     file: Optional[FileStorage] = request.files.get("file")
     if not file:
         return {
@@ -52,7 +62,19 @@ def upload() -> ResponseReturnValue:
         }, HTTPStatus.BAD_REQUEST
     file.stream.seek(0)
 
-    print(file, flush=True)
+    try:
+        filepath: str = os.path.join(config.UPLOAD_FOLDER, f"{user.id}.zip")
+
+        if os.path.exists(filepath):
+            return {
+                'success': False
+            }, HTTPStatus.BAD_REQUEST
+
+        file.save(filepath)
+    except Exception as e:
+        print(e, flush=True)
+
+    user_repository.update_upload_time(user.spotify_id)
 
     return {
         "success": True

@@ -1,5 +1,6 @@
 import os
 import dotenv
+from datetime import timedelta
 
 
 dotenv.load_dotenv()
@@ -24,7 +25,7 @@ FLASK_SECRET_KEY: str = _load_env("FLASK_SECRET_KEY")
 
 
 # Spotify
-SPOTIFY_REDIRECT_URI: str = "https://kcspotifyanalyzer.duckdns.org:9027/auth/callback"
+SPOTIFY_REDIRECT_URI: str = "https://kcspotifyanalyzer.duckdns.org:9005/auth/callback"
 SPOTIFY_CLIENT_ID: str = _load_env("SPOTIFY_CLIENT_ID")
 SPOTIFY_CLIENT_SECRET: str = _load_env("SPOTIFY_CLIENT_SECRET")
 
@@ -41,3 +42,5 @@ DATABASE_RECONNECTION_TIMEOUT: int | float = 1
 
 # Session
 SPOTIFY_ID_KEY: str = "spotify_id"
+UPLOAD_TIME_LIMIT: timedelta = timedelta(minutes=5.0)
+UPLOAD_FOLDER: str = "/uploads/"

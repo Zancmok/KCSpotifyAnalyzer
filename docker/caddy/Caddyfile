@@ -1,4 +1,4 @@
-kcspotifyanalyzer.duckdns.org:9027 {
+kcspotifyanalyzer.duckdns.org:9005 {
     reverse_proxy web_server:5000
     encode gzip
     tls {
