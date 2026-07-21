@@ -22,7 +22,7 @@ def _load_bool(env_variable_name: str) -> bool:
 
 def _load_float(env_variable_name: str) -> float:
     try:
-       return float(_load_env(env_variable_name))
+        return float(_load_env(env_variable_name))
     except ValueError:
         raise EnvironmentError(f".env is not of type float: '{env_variable_name}'")
 
@@ -32,7 +32,6 @@ DEBUG: bool = _load_bool("DEBUG")
 
 
 # Spotify
-SPOTIFY_REDIRECT_URI: str = _load_str("SPOTIFY_REDIRECT_URI")
 SPOTIFY_CLIENT_ID: str = _load_str("SPOTIFY_CLIENT_ID")
 SPOTIFY_CLIENT_SECRET: str = _load_str("SPOTIFY_CLIENT_SECRET")
 

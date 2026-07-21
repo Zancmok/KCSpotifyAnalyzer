@@ -1,5 +1,6 @@
 import config
 from flask import Flask
+from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from routes import blueprints
 from database_lib import initialize as initialize_database
 from graphql_api import MyGraphQLView
@@ -11,6 +12,8 @@ def main() -> None:
 
     app: Flask = Flask(__name__)
     app.config["SECRET_KEY"] = config.FLASK_SECRET_KEY
+
+    FlaskInstrumentor().instrument_app(app)
 
     for blueprint in blueprints:
         app.register_blueprint(blueprint)
