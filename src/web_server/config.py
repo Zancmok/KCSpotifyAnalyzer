@@ -13,34 +13,48 @@ def _load_env(env_variable_name: str) -> str:
     return return_value
 
 
+def _load_str(env_variable_name: str) -> str:
+    return _load_env(env_variable_name)
+
+
+def _load_bool(env_variable_name: str) -> bool:
+    return _load_env(env_variable_name).lower() == "true"
+
+
+def _load_float(env_variable_name: str) -> float:
+    try:
+       return float(_load_env(env_variable_name))
+    except ValueError:
+        raise EnvironmentError(f".env is not of type float: '{env_variable_name}'")
+
+
 # General
-VERSION: str = _load_env("APP_VERSION")
-DEBUG: bool = True
+VERSION: str = _load_str("APP_VERSION")
+DEBUG: bool = _load_bool("DEBUG")
 
 
 # Flask
-PORT: int = 5000
-HOST: str = "0.0.0.0"
-FLASK_SECRET_KEY: str = _load_env("FLASK_SECRET_KEY")
+PORT: int = int(_load_float("INTERNAL_PORT"))
+HOST: str = _load_str("INTERNAL_HOST")
+FLASK_SECRET_KEY: str = _load_str("FLASK_SECRET_KEY")
 
 
 # Spotify
-SPOTIFY_REDIRECT_URI: str = "https://kcspotifyanalyzer.duckdns.org:9005/auth/callback"
-SPOTIFY_CLIENT_ID: str = _load_env("SPOTIFY_CLIENT_ID")
-SPOTIFY_CLIENT_SECRET: str = _load_env("SPOTIFY_CLIENT_SECRET")
+SPOTIFY_REDIRECT_URI: str = _load_str("SPOTIFY_REDIRECT_URI")
+SPOTIFY_CLIENT_ID: str = _load_str("SPOTIFY_CLIENT_ID")
+SPOTIFY_CLIENT_SECRET: str = _load_str("SPOTIFY_CLIENT_SECRET")
 
 
 # Database
-MYSQL_PORT: int = 3306
-MYSQL_HOST: str = "mysql"
-MYSQL_DATABASE: str = "database"
-MYSQL_ROOT_PASSWORD: str = "admin"
-MYSQL_PASSWORD: str = "admin"
-MYSQL_USER: str = "admin"
-DATABASE_RECONNECTION_TIMEOUT: int | float = 1
+MYSQL_PORT: int = int(_load_float("MYSQL_PORT"))
+MYSQL_HOST: str = _load_str("MYSQL_HOST")
+MYSQL_DATABASE: str = _load_str("MYSQL_DATABASE")
+MYSQL_PASSWORD: str = _load_str("MYSQL_PASSWORD")
+MYSQL_USER: str = _load_str("MYSQL_USER")
+DATABASE_RECONNECTION_TIMEOUT: float = 1.0
 
 
 # Session
 SPOTIFY_ID_KEY: str = "spotify_id"
 UPLOAD_TIME_LIMIT: timedelta = timedelta(minutes=5.0)
-UPLOAD_FOLDER: str = "/uploads/"
+UPLOAD_FOLDER: str = _load_str("UPLOAD_FOLDER")
