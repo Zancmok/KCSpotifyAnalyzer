@@ -1,5 +1,5 @@
-from database_lib import initialize, get_sql_engine
 import config
+from database_lib import initialize
 
 
 def main() -> None:
