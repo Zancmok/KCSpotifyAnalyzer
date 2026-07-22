@@ -5,21 +5,64 @@ on:
   pull_request:
 
 jobs:
-  pylint:
+  pylint-database-lib:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - uses: actions/setup-python@v5
-      with:
-        python-version: "3.14"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pylint
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e src/database_lib
+          pip install pylint
+          
+      - name: Analyze code with pylint
+        run: |
+          pylint src/database_lib/database_lib
+          
+  pylint-web-server:
+    runs-on: ubuntu-latest
 
-    - name: Analyse code with pylint
-      run: |
-        pylint $(git ls-files '*.py')
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --no-cache-dir -r docker/web_server/requirements.txt
+          pip install -e src/database_lib
+          pip install pylint
+
+      - name: Analyze code with pylint
+        run: |
+          pylint src/web_server
+
+  pylint-data-analyzer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --no-cache-dir -r docker/data_analyzer/requirements.txt
+          pip install -e src/database_lib
+          pip install pylint
+
+      - name: Analyze code with pylint
+        run: |
+          pylint src/data_analyzer
