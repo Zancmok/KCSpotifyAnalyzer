@@ -25,7 +25,7 @@ jobs:
         run: |
           pylint \
               --disable=missing-module-docstring \
-              src/data_analyzer
+              src/database_lib/database_lib
           
   pylint-web-server:
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
         run: |
           pylint \
               --disable=missing-module-docstring \
-              src/data_analyzer
+              src/web_server
 
   pylint-data-analyzer:
     runs-on: ubuntu-latest
