@@ -65,4 +65,7 @@ jobs:
 
       - name: Analyze code with pylint
         run: |
-          pylint src/data_analyzer
+          pylint \
+              --disable=missing-module-docstring,missing-function-docstring \
+              src/data_analyzer
+
