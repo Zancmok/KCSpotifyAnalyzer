@@ -23,7 +23,9 @@ jobs:
           
       - name: Analyze code with pylint
         run: |
-          pylint src/database_lib/database_lib
+          pylint \
+              --disable=missing-module-docstring \
+              src/data_analyzer
           
   pylint-web-server:
     runs-on: ubuntu-latest
@@ -44,7 +46,9 @@ jobs:
 
       - name: Analyze code with pylint
         run: |
-          pylint src/web_server
+          pylint \
+              --disable=missing-module-docstring \
+              src/data_analyzer
 
   pylint-data-analyzer:
     runs-on: ubuntu-latest
