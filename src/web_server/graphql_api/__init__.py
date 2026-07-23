@@ -1,8 +1,8 @@
 from typing import Any, Optional
 from strawberry.flask.views import GraphQLView
 from flask import session, Request, Response
-from database_lib.repositories.user_repository import get_by_spotify_id
 import config
+from database_lib.repositories.user_repository import get_by_spotify_id
 
 
 class MyGraphQLView(GraphQLView):

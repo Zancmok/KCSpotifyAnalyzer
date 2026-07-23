@@ -1,14 +1,18 @@
+from typing import Optional
 import strawberry
 from strawberry.types import Info
-from typing import Optional
 from database_lib.models import User as UserModel
 from ..types import User
 
 
 @strawberry.type
 class MeQuery:
+    """ A GraphQL Query denoting self. """
+    
     @strawberry.field
     def me(self, info: Info) -> Optional[User]:
+        """ Returns info about self. """
+        
         user_model: Optional[UserModel] = info.context["user"]
 
         if not user_model:

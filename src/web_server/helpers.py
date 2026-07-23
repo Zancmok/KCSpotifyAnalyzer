@@ -5,6 +5,8 @@ import config
 
 
 def require_auth(function: Callable[..., Any]) -> Callable[..., Any]:
+    """ Redirects to the login page when accessing a route with this decorator and not authenticated. """
+    
     @functools.wraps(function)
     def wrapper(*args, **kwargs) -> Any:
         if not session.get(config.SPOTIFY_ID_KEY):

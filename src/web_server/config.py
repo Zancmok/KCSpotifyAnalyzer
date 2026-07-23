@@ -1,6 +1,7 @@
 import os
-import dotenv
 from datetime import timedelta
+import dotenv
+
 
 dotenv.load_dotenv()
 
@@ -23,8 +24,8 @@ def _load_bool(env_variable_name: str) -> bool:
 def _load_float(env_variable_name: str) -> float:
     try:
         return float(_load_env(env_variable_name))
-    except ValueError:
-        raise EnvironmentError(f".env is not of type float: '{env_variable_name}'")
+    except ValueError as exc:
+        raise EnvironmentError(f".env is not of type float: '{env_variable_name}'") from exc
 
 
 # General

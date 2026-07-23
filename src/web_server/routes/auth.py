@@ -8,6 +8,7 @@ import database_lib.repositories.user_repository as user_repository
 from helpers import require_auth
 import config
 
+
 blueprint: Blueprint = Blueprint(
     name="auth",
     import_name=__name__,

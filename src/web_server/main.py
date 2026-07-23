@@ -2,12 +2,13 @@ import config
 from flask import Flask
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
 from routes import blueprints
-from database_lib import initialize as initialize_database
 from graphql_api import MyGraphQLView
 from graphql_api.schema import schema
-
+from database_lib import initialize as initialize_database
 
 def main() -> None:
+    """ Application entry point. """
+    
     print(f"version: {config.VERSION}", flush=True)
 
     app: Flask = Flask(__name__)

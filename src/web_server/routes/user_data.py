@@ -1,15 +1,16 @@
 import os.path
-from typing import Any, Optional
+from typing import Optional
 from datetime import datetime
+from http import HTTPMethod, HTTPStatus
 import zipfile
 from flask import Blueprint, session, request
 from flask.typing import ResponseReturnValue
-from http import HTTPMethod, HTTPStatus
 from werkzeug.datastructures import FileStorage
-from database_lib.models import User
-import database_lib.repositories.user_repository as user_repository
 from helpers import require_auth
 import config
+from database_lib.models import User
+from database_lib.repositories import user_repository
+
 
 blueprint: Blueprint = Blueprint(
     name="user_data",

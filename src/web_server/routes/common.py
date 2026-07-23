@@ -1,7 +1,7 @@
+from http import HTTPStatus, HTTPMethod
 from datetime import datetime, timezone
 from flask import Blueprint, jsonify
 from flask.typing import ResponseReturnValue
-from http import HTTPStatus, HTTPMethod
 import config
 
 

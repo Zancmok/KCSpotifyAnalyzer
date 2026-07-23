@@ -1,6 +1,6 @@
+from http import HTTPMethod, HTTPStatus
 from flask import Blueprint, render_template
 from flask.typing import ResponseReturnValue
-from http import HTTPMethod, HTTPStatus
 from helpers import require_auth
 
 
