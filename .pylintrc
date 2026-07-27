@@ -1,0 +1,18 @@
+[MESSAGES CONTROL]
+
+disable =
+    missing-module-docstring,
+
+[FORMAT]
+
+max-line-length=150
+
+
+[DESIGN]
+
+max-args=7
+max-positional-arguments=7
+
+[BASIC]
+
+module-rgx=[a-zA-Z_][a-zA-Z0-9_]*$

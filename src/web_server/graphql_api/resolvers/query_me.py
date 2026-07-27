@@ -1,3 +1,5 @@
+# pylint: disable=too-few-public-methods
+
 from typing import Optional
 import strawberry
 from strawberry.types import Info
@@ -7,12 +9,17 @@ from ..types import User
 
 @strawberry.type
 class MeQuery:
-    """ A GraphQL Query denoting self. """
-    
+    """GraphQL query resolver for retrieving the current user.
+
+    Provides fields related to the authenticated user from the request context.
+    """
     @strawberry.field
     def me(self, info: Info) -> Optional[User]:
-        """ Returns info about self. """
-        
+        """Retrieve the currently authenticated user.
+
+        Returns the current user's GraphQL representation if a user is logged
+        in, otherwise returns ``None``.
+        """
         user_model: Optional[UserModel] = info.context["user"]
 
         if not user_model:

@@ -7,16 +7,30 @@ from .. import get_sql_engine
 
 
 def get_by_spotify_id(spotify_id: str) -> Optional[User]:
+    """Retrieve a user by their Spotify ID.
+
+    Returns the matching user if one exists, otherwise ``None``.
+    """
     with Session(get_sql_engine()) as session:
         return session.execute(select(User).where(User.spotify_id == spotify_id)).scalars().first()
 
 
-def get_by_id(id: int) -> Optional[User]:
+def get_by_id(user_id: int) -> Optional[User]:
+    """Retrieve a user by their database ID.
+
+    Returns the matching user if one exists, otherwise ``None``.
+    """
     with Session(get_sql_engine()) as session:
-        return session.execute(select(User).where(User.id == id)).scalars().first()
+        return session.execute(select(User).where(User.id == user_id)).scalars().first()
 
 
 def update_user(spotify_id: str, name: str, image_url: Optional[str]) -> User:
+    """Create or update a user.
+
+    If a user with the given Spotify ID does not exist, a new user is created.
+    Otherwise, the user's profile information is updated. The persisted user is
+    returned.
+    """
     with Session(get_sql_engine()) as session:
         user: Optional[User] = session.execute(select(User).where(User.spotify_id == spotify_id)).scalars().first()
 
@@ -40,6 +54,10 @@ def update_user(spotify_id: str, name: str, image_url: Optional[str]) -> User:
 
 
 def get_last_upload_time(spotify_id: str) -> Optional[datetime]:
+    """Retrieve the timestamp of a user's most recent data upload.
+
+    Returns ``None`` if the user does not exist or has never uploaded data.
+    """
     with Session(get_sql_engine()) as session:
         user: Optional[User] = session.execute(select(User).where(User.spotify_id == spotify_id)).scalars().first()
 
@@ -50,6 +68,10 @@ def get_last_upload_time(spotify_id: str) -> Optional[datetime]:
 
 
 def update_upload_time(spotify_id: str) -> None:
+    """Update a user's last upload timestamp to the current time.
+
+    Does nothing if no user with the given Spotify ID exists.
+    """
     with Session(get_sql_engine()) as session:
         user: Optional[User] = session.execute(select(User).where(User.spotify_id == spotify_id)).scalars().first()
 

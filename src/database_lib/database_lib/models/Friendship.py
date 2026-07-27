@@ -11,6 +11,11 @@ if TYPE_CHECKING:
 
 
 class Friendship(BaseModel):
+    """Represents a friendship relationship between two users.
+
+    Stores friendship requests, accepted friendships, the initiating user,
+    and the relevant timestamps.
+    """
     __tablename__ = "friendship"
 
     user1_id: Mapped[int] = mapped_column(

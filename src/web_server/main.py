@@ -6,9 +6,10 @@ from graphql_api import MyGraphQLView
 from graphql_api.schema import schema
 from database_lib import initialize as initialize_database
 
+
 def main() -> None:
     """ Application entry point. """
-    
+
     print(f"version: {config.VERSION}", flush=True)
 
     app: Flask = Flask(__name__)

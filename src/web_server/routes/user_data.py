@@ -22,6 +22,11 @@ blueprint: Blueprint = Blueprint(
 @blueprint.route("/me", methods=[HTTPMethod.POST])
 @require_auth
 def me() -> ResponseReturnValue:
+    """Return information about the currently authenticated user.
+
+    Retrieves the user associated with the current Spotify session and returns
+    their profile information.
+    """
     user: Optional[User] = user_repository.get_by_spotify_id(session.get(config.SPOTIFY_ID_KEY, ''))
     if not user:
         return {}, HTTPStatus.BAD_REQUEST
@@ -37,6 +42,11 @@ def me() -> ResponseReturnValue:
 @blueprint.route("/upload", methods=[HTTPMethod.POST])
 @require_auth
 def upload() -> ResponseReturnValue:
+    """Handle a user's Spotify data upload.
+
+    Validates the uploaded ZIP archive, prevents duplicate or overly frequent
+    uploads, stores the file, and updates the user's last upload timestamp.
+    """
     user: Optional[User] = user_repository.get_by_spotify_id(session.get(config.SPOTIFY_ID_KEY, ''))
     if not user:
         return {
@@ -72,7 +82,7 @@ def upload() -> ResponseReturnValue:
             }, HTTPStatus.BAD_REQUEST
 
         file.save(filepath)
-    except Exception as e:
+    except OSError as e:
         print(e, flush=True)
 
     user_repository.update_upload_time(user.spotify_id)

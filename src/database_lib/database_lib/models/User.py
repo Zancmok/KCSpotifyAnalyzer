@@ -13,6 +13,11 @@ if TYPE_CHECKING:
 
 
 class User(BaseModel):
+    """Represents a registered Spotify Analyzer user.
+
+    Stores a user's Spotify account information, profile metadata, and
+    relationships to friendships, groups, and listening history.
+    """
     __tablename__ = "user"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -74,4 +79,3 @@ class User(BaseModel):
         foreign_keys="Listen.user_id",
         back_populates="user"
     )
-    

@@ -20,13 +20,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e src/database_lib
           pip install pylint
-          
+
       - name: Analyze code with pylint
+        working-directory: src/database_lib
         run: |
-          pylint \
-              --disable=missing-module-docstring \
-              src/database_lib/database_lib
-          
+          pylint database_lib
+
   pylint-web-server:
     runs-on: ubuntu-latest
 
@@ -45,10 +44,9 @@ jobs:
           pip install pylint
 
       - name: Analyze code with pylint
+        working-directory: src/web_server
         run: |
-          pylint \
-              --disable=missing-module-docstring \
-              src/web_server
+          pylint .
 
   pylint-data-analyzer:
     runs-on: ubuntu-latest
@@ -68,8 +66,6 @@ jobs:
           pip install pylint
 
       - name: Analyze code with pylint
+        working-directory: src/data_analyzer
         run: |
-          pylint \
-              --disable=missing-module-docstring,missing-function-docstring \
-              src/data_analyzer
-
+          pylint .

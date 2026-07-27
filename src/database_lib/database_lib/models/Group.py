@@ -11,6 +11,12 @@ if TYPE_CHECKING:
 
 
 class Group(BaseModel):
+    """Represents a user-created group.
+
+    A group is owned by a single user and can contain multiple members through
+    the ``UserGroup`` association table. It stores basic metadata such as its
+    name, optional image, and creation timestamp.
+    """
     __tablename__ = "group"
 
     id: Mapped[int] = mapped_column(primary_key=True)

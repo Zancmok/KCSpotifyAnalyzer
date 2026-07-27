@@ -1,6 +1,6 @@
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 from datetime import datetime
-from sqlalchemy import String, DateTime, func, ForeignKey
+from sqlalchemy import DateTime, func, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .BaseModel import BaseModel
 
@@ -11,6 +11,11 @@ if TYPE_CHECKING:
 
 
 class UserGroup(BaseModel):
+    """Associates users with groups.
+
+    Represents a user's membership in a group, forming the many-to-many
+    relationship between users and groups while recording when the user joined.
+    """
     __tablename__ = "usergroup"
 
     user_id: Mapped[int] = mapped_column(

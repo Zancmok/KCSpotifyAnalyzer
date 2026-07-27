@@ -1,6 +1,6 @@
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 from datetime import datetime
-from sqlalchemy import String, DateTime, func, BigInteger, ForeignKey, Integer, Boolean
+from sqlalchemy import String, DateTime, BigInteger, ForeignKey, Integer, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .BaseModel import BaseModel
 
@@ -11,6 +11,12 @@ if TYPE_CHECKING:
 
 
 class Listen(BaseModel):
+    """Represents a single Spotify listening event.
+
+    Each record captures one playback instance, including the user, track,
+    playback duration, timestamp, platform, playback context, and other
+    metadata reported by Spotify.
+    """
     __tablename__ = "listen"
 
     id: Mapped[int] = mapped_column(

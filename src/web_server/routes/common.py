@@ -13,6 +13,10 @@ blueprint: Blueprint = Blueprint(
 
 @blueprint.route("/ping", methods=[HTTPMethod.GET])
 def ping() -> ResponseReturnValue:
+    """Return a basic service availability response.
+
+    Used to verify that the application is running and responding to requests.
+    """
     return jsonify({
         "status": "ok"
     }), HTTPStatus.OK
@@ -20,6 +24,11 @@ def ping() -> ResponseReturnValue:
 
 @blueprint.route("/health", methods=[HTTPMethod.GET])
 def health() -> ResponseReturnValue:
+    """Return detailed application health information.
+
+    Includes the service status, current UTC timestamp, and application
+    version.
+    """
     return jsonify({
         "status": "ok",
         "service": "kc-spotify-analyzer",

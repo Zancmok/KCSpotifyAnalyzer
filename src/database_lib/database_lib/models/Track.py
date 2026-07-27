@@ -1,6 +1,5 @@
-from typing import TYPE_CHECKING, Optional
-from datetime import datetime
-from sqlalchemy import String, DateTime, func, BigInteger, ForeignKey, Integer, Boolean
+from typing import TYPE_CHECKING
+from sqlalchemy import String, BigInteger
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .BaseModel import BaseModel
 
@@ -10,6 +9,11 @@ if TYPE_CHECKING:
 
 
 class Track(BaseModel):
+    """Represents a Spotify track.
+
+    Stores the Spotify identifier for a track and provides access to all
+    listening events associated with it.
+    """
     __tablename__ = "track"
 
     id: Mapped[int] = mapped_column(

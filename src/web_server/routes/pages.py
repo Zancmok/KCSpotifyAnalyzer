@@ -12,10 +12,18 @@ blueprint: Blueprint = Blueprint(
 
 @blueprint.route("/", methods=[HTTPMethod.GET])
 def index() -> ResponseReturnValue:
+    """Render the public landing page.
+
+    Returns the index template for unauthenticated visitors.
+    """
     return render_template("index.html"), HTTPStatus.OK
 
 
 @blueprint.route("/home", methods=[HTTPMethod.GET])
 @require_auth
 def home() -> ResponseReturnValue:
+    """Render the authenticated user's home page.
+
+    Requires a valid authenticated session before rendering the home template.
+    """
     return render_template("home.html"), HTTPStatus.OK
