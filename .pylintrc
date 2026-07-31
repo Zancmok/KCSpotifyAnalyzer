@@ -2,11 +2,19 @@
 
 disable =
     missing-module-docstring,
+    too-few-public-methods,
+    duplicate-code,
+    missing-function-docstring,
 
 [FORMAT]
 
 max-line-length=150
 
+[TYPECHECK]
+
+ignored-modules =
+    sqlalchemy,
+    strawberry-graphql[cli]
 
 [DESIGN]
 
