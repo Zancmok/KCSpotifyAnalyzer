@@ -72,3 +72,27 @@ jobs:
           pylint \
             --rcfile src/data_analyzer/.pylintrc \
             src/data_analyzer
+
+  pylint-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --no-cache-dir -r docker/data_analyzer/requirements.txt
+          pip install --no-cache-dir -r docker/web_server/requirements.txt
+          pip install -e src/database_lib
+          pip install pylint
+
+      - name: Analyze code with pylint
+        run: |
+          pylint \
+            --rcfile src/tests/.pylintrc \
+            src/tests

@@ -72,7 +72,8 @@ database_lib: Project = define_project(
 PROJECTS: list[Project] = [
     database_lib,
     define_project("data_analyzer", [database_lib]),
-    define_project("web_server", [database_lib])
+    define_project("web_server", [database_lib]),
+    define_project("tests", [database_lib], include_dependencies=False)
 ]
 
 
