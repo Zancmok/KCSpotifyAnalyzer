@@ -1,0 +1,13 @@
+@use "sass:color";
+
+// Base Colors
+$black: #000000;
+$white: #FFFFFF;
+$green: #1DB954;
+
+// Multipliers
+$shade-step: 10%;
+
+// Shades
+$green-light: color.adjust($green, $lightness: $shade-step);
+$green-dark: color.adjust($green, $lightness: -$shade-step);

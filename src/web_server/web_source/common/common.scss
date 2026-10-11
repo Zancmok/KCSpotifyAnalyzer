@@ -1,0 +1,31 @@
+@use "color";
+@use "spacing";
+@use "font";
+
+body {
+  // Font
+  font-family: font.$font-family;
+  font-size: font.$font-size;
+
+  // Color Scheme
+  color: color.$white;
+  background-color: color.$black;
+
+  // Header + Footer placement logic
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+a {
+  color: color.$green;
+}
+
+header {
+  min-height: spacing.$header-height;
+}
+
+footer {
+  min-height: spacing.$footer-height;
+}

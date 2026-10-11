@@ -71,7 +71,7 @@ def callback() -> ResponseReturnValue:
             curr_width = width
             image_url = image.get("url")
 
-    user_repository.update_user(
+    user_repository.upsert_user(
         spotify_id=spotify_id,
         name=name,
         image_url=image_url

@@ -31,7 +31,7 @@ class UserRepository(BaseRepository):
         with self._session_factory() as session:
             return session.execute(select(User).where(User.id == user_id)).scalars().first()
 
-    def update_user(self, spotify_id: str, name: str, image_url: str | None) -> User:
+    def upsert_user(self, spotify_id: str, name: str, image_url: str | None = None) -> User:
         """
         Create or update a user.
 
@@ -51,7 +51,7 @@ class UserRepository(BaseRepository):
             user: User | None = session.execute(
                 select(User).where(User.spotify_id == spotify_id)).scalars().first()
 
-            if not user:
+            if user is None:
                 user: User = User(
                     spotify_id=spotify_id,
                     name=name,
@@ -82,12 +82,12 @@ class UserRepository(BaseRepository):
             user: User | None = session.execute(
                 select(User).where(User.spotify_id == spotify_id)).scalars().first()
 
-            if not user:
+            if user is None:
                 return None
 
             return user.last_upload
 
-    def update_upload_time(self, spotify_id: str) -> None:
+    def update_upload_time(self, spotify_id: str) -> User | None:
         """
         Update a user's last upload timestamp to the current time.
 
@@ -99,7 +99,9 @@ class UserRepository(BaseRepository):
         with self._session_factory() as session, session.begin():
             user: User | None = session.execute(select(User).where(User.spotify_id == spotify_id)).scalars().first()
 
-            if not user:
-                return
+            if user is None:
+                return None
 
             user.last_upload = datetime.now(timezone.utc)
+
+            return user

@@ -4,7 +4,6 @@ from pathlib import Path
 from dataclasses import dataclass
 import subprocess
 import sys
-from typing import Optional
 
 
 @dataclass(frozen=True)
@@ -25,7 +24,7 @@ class Project:
     name: str
     project_path: Path
     config_path: Path
-    dependencies_path: Optional[Path]
+    dependencies_path: Path | None
     project_dependencies: list[Project]
     installable: bool
 
