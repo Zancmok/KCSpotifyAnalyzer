@@ -36,11 +36,13 @@ def session_factory() -> sessionmaker:
 
 @pytest.fixture
 def user_repository(session_factory: sessionmaker) -> UserRepository:
+    """Returns a new UserRepository."""
     return UserRepository(session_factory)
 
 
 @pytest.fixture
 def user(session_factory: sessionmaker) -> User:
+    """Returns a new User with only the necessities."""
     user: User = User(
         spotify_id="spotify-01",
         name="Hatsune Miku"
@@ -54,6 +56,7 @@ def user(session_factory: sessionmaker) -> User:
 
 @pytest.fixture
 def user2(session_factory: sessionmaker) -> User:
+    """Returns a new User with all properties."""
     user: User = User(
         spotify_id="spotify-02",
         name="Kagamine Rin",
