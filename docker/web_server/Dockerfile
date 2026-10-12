@@ -9,7 +9,7 @@ COPY ./src/web_server/static/ts/ /ts/
 RUN tsc -p /ts/ --rootDir /ts --outDir /ts/ts
 
 
-FROM python:3.14-slim AS py-build
+FROM python:3.15-rc-slim AS py-build
 
 ENV APP_VERSION="alpha-0.0.4"
 
