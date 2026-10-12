@@ -1,4 +1,5 @@
 # pylint: disable=redefined-outer-name
+from datetime import datetime
 
 import pytest
 from sqlalchemy import Engine, create_engine
@@ -42,8 +43,7 @@ def user_repository(session_factory: sessionmaker) -> UserRepository:
 def user(session_factory: sessionmaker) -> User:
     user: User = User(
         spotify_id="spotify-01",
-        name="Hatsune Miku",
-        image_url=None,
+        name="Hatsune Miku"
     )
 
     with session_factory.begin() as session:
@@ -57,7 +57,8 @@ def user2(session_factory: sessionmaker) -> User:
     user: User = User(
         spotify_id="spotify-02",
         name="Kagamine Rin",
-        image_url=None,
+        image_url="https://len.com/len.png",
+        last_upload=datetime.now(),
     )
 
     with session_factory.begin() as session:
