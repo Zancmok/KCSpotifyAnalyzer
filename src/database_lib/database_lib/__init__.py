@@ -54,12 +54,12 @@ def initialize(username: str, password: str, host: str, port: int, database: str
             print(f"Retrying connection in {reconnection_timeout}s...", flush=True)
             sleep(reconnection_timeout)
 
-    BaseModel.metadata.create_all(_SQL_ENGINE)
-
     _SESSION_FACTORY = sessionmaker(
         bind=_SQL_ENGINE,
         expire_on_commit=False
     )
+
+    BaseModel.metadata.create_all(_SQL_ENGINE)
 
 
 def _get_sql_engine() -> Engine:

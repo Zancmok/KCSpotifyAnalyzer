@@ -4,9 +4,10 @@ import config
 from flask import Blueprint, redirect, url_for, request, session
 from flask.typing import ResponseReturnValue
 from spotipy import SpotifyOAuth, Spotify
-from database_lib.repositories import user_repository
+from database_lib.repositories.UserRepository import UserRepository
 
 
+user_repository: UserRepository = UserRepository()
 blueprint: Blueprint = Blueprint(
     name="auth",
     import_name=__name__,
