@@ -1,7 +1,7 @@
 import config
 from flask import Flask
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
-from routes import blueprints
+from routes import CommonRoute
 from graphql_api import MyGraphQLView
 from graphql_api.schema import schema
 from database_lib import initialize as initialize_database
@@ -17,8 +17,9 @@ def main() -> None:
 
     FlaskInstrumentor().instrument_app(app)
 
-    for blueprint in blueprints:
-        app.register_blueprint(blueprint)
+    route_common: CommonRoute = CommonRoute("common", __name__)
+
+    app.register_blueprint(route_common.blueprint)
 
     app.add_url_rule(
         "/graphql",
