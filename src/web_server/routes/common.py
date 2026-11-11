@@ -11,8 +11,16 @@ class CommonRoute(BaseRoute):
         super().__init__(name, import_name)
 
         # Routes
-        self.blueprint.add_url_rule("/ping", methods=[HTTPMethod.GET])
-        self.blueprint.add_url_rule("/health", methods=[HTTPMethod.GET])
+        self.blueprint.add_url_rule(
+            "/ping",
+            methods=[HTTPMethod.GET],
+            view_func=self.ping
+        )
+        self.blueprint.add_url_rule(
+            "/health",
+            methods=[HTTPMethod.GET],
+            view_func=self.health
+        )
 
     @staticmethod
     def ping() -> ResponseReturnValue:

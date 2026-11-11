@@ -15,8 +15,6 @@ ENV APP_VERSION="alpha-0.0.4"
 
 WORKDIR /web_server
 
-COPY ./src/web_server/ /web_server/
-
 COPY ./docker/web_server/requirements.txt /web_server/
 
 RUN pip install --no-cache-dir -r /web_server/requirements.txt
@@ -26,6 +24,8 @@ COPY ./src/database_lib/ /database_lib/
 RUN pip install /database_lib/
 
 COPY ./docker/web_server/.env /web_server/
+
+COPY ./src/web_server/ /web_server/
 
 COPY --from=ts-build /ts/ts/ /web_server/static/ts/
 
